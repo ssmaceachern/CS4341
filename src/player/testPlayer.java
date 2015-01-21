@@ -1,3 +1,5 @@
+package player;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,6 +36,7 @@ public class testPlayer {
 	public static void main(String[] args) throws IOException {
 		testPlayer rp=new testPlayer();
 		System.out.println(rp.playerName);
+		System.out.println("Butts");
 		rp.processInput();
 		rp.processInput();
 		rp.processInput();
