@@ -22,7 +22,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		// setup class variables which contain the values of board and player
 		// positions and such
-		int width, height, connectN, timeLimit;
+		int width, height, connectN, timeLimit, whosTurn;
 		boolean amIFirst;
 
 		// Set up to Read the incoming arguments (game config)
@@ -40,6 +40,7 @@ public class Main {
 
 		// set boolean value for who is first
 		amIFirst = (Integer.parseInt(gameConfig[3]) == 1) ? true : false;
+		whosTurn = Integer.parseInt(gameConfig[3]);
 
 		timeLimit = Integer.parseInt(gameConfig[4]);
 
@@ -54,13 +55,15 @@ public class Main {
 
                 // send move
                 System.out.println(String.valueOf(move.getMove()));
+                //Also print out whether or not we popped something out
                 System.out.flush();
             } else {
+            	//wait till the other person makes their move
                 // read move
             	String[] moveInfo = input.readLine().split(" ");
-                Move move = new Move(Integer.parseInt(moveInfo[0]),Integer.parseInt(moveInfo[1]));
+                Move move = new Move(Integer.parseInt(moveInfo[0]),Integer.parseInt(moveInfo[1]),whosTurn);
 
-                // check for end
+                // check for end and handle it!
                 if (move.getMove() < 0)
                     break;
             }

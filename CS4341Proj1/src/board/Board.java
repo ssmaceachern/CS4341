@@ -8,5 +8,9 @@ package board;
  *
  */
 public class Board {
+	
+	//hashmap of moves
+	
+	//should have a way to print stuff out
 
 }
