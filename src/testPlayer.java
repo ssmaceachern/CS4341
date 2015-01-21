@@ -5,8 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-
-public class RandomPlayer {
+public class testPlayer {
 
 	String playerName="aa";
 	BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -33,7 +32,7 @@ public class RandomPlayer {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		RandomPlayer rp=new RandomPlayer();
+		testPlayer rp=new testPlayer();
 		System.out.println(rp.playerName);
 		rp.processInput();
 		rp.processInput();
