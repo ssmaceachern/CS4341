@@ -155,14 +155,7 @@ public class IterativeDeepeningAlphaBetaSearch<STATE, ACTION, PLAYER>{
                 }
         }
 
-        /** Returns some statistic data from the last search. */
-        @Override
-        public Metrics getMetrics() {
-                Metrics result = new Metrics();
-                result.set("expandedNodes", expandedNodes);
-                result.set("maxDepth", maxDepth);
-                return result;
-        }
+
 
         /**
          * Primitive operation which is called at the beginning of one depth limited
