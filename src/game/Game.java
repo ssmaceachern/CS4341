@@ -2,10 +2,11 @@ package game;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 import javax.swing.Timer;
 
-import core.Input;
 import player.Player;
 
 public class Game {
@@ -37,7 +38,8 @@ public class Game {
 				System.out.println(String.valueOf(move));
 				System.out.flush();
 			} else {
-				String[] data = Input.Read().split(" ");
+				BufferedReader streamReader = new BufferedReader(new InputStreamReader(System.in));
+				String[] data = streamReader.readLine().split(" ");
 				move = Integer.parseInt(data[0]);
 			}
 			

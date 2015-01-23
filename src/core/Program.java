@@ -1,5 +1,8 @@
 package core;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import game.Game;
 
 public class Program {
@@ -9,7 +12,8 @@ public class Program {
 		
 		sendNameToReferee();
 		
-		String[] gameConfig = Input.Read().split(" ");
+		BufferedReader streamReader = new BufferedReader(new InputStreamReader(System.in));
+		String[] gameConfig = streamReader.readLine().split(" ");
 		
         int height = Integer.parseInt(gameConfig[0]);
         int width = Integer.parseInt(gameConfig[1]);
