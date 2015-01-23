@@ -10,30 +10,39 @@ import javax.swing.Timer;
 import player.Player;
 
 public class Game {
-	public Timer Timer;
-	public int NumberToWin;
-	public int PlayerNumber;
-	public int TimeLimit;
+	/*
+	 * Class declaration variables
+	 */
+	public Timer timer;
+	public int numToWin,playerNum,TimeLimit;
 	
-	public boolean MyTurn;
-	public Board Board;
-	public Player Player;
+	public boolean isMyTurn, isDropUsed;
+	public Board board;
+	public Player player;
 	  
+	/**
+	 * 
+	 * @param height - number of rows
+	 * @param width - number of columns
+	 * @param numberToWin - connectN needed to win
+	 * @param playerNumber - whether or not I'm first
+	 * @param timeLimit - time limit for each turn
+	 */
 	public Game(int height, int width, int numberToWin, int playerNumber, int timeLimit) {
-		NumberToWin = numberToWin;
-		PlayerNumber = playerNumber;
+		numToWin = numberToWin;
+		playerNum = playerNumber;
 		TimeLimit = timeLimit;
 		
-		MyTurn = PlayerNumber == 0;
-		Board = new Board(height, width, numberToWin, playerNumber, timeLimit);
-		Player = new Player();
+		isMyTurn = playerNum == 0;
+		board = new Board(height, width, numberToWin, playerNumber, timeLimit);
+		player = new Player();
 	}
 	
 	public void Play() throws Exception {
 		int move;
 		
 		for (;;) {
-			if (MyTurn) {
+			if (isMyTurn) {
 				move = NextMove();
 				System.out.println(String.valueOf(move));
 				System.out.flush();
@@ -50,8 +59,8 @@ public class Game {
 				return;
 			}
 			
-			Board.HandleMove(MyTurn, move);
-			MyTurn = !MyTurn;
+			board.HandleMove(isMyTurn, move);
+			isMyTurn = !isMyTurn;
 		}
 	}
 	
@@ -59,7 +68,7 @@ public class Game {
 		int move = 0;
 		
 		StartClock();
-		move = Player.Decide(this);
+		move = player.Decide(this);
 		StopClock();
 		
 		return move;
@@ -69,14 +78,14 @@ public class Game {
 		int delay = (TimeLimit / 2) * 1000;
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				Player.Stop();
+				player.Stop();
 			}
 		};
-		Timer = new Timer(delay, taskPerformer);
-		Timer.start();
+		timer = new Timer(delay, taskPerformer);
+		timer.start();
 	}
 	
 	private void StopClock() {
-		Timer.stop();
+		timer.stop();
 	}
 }

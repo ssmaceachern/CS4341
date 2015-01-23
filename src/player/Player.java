@@ -17,7 +17,7 @@ public class Player {
 	}
 	
 	public int Decide(Game game) {
-		state = new State(0, Depth, game.Board, this);
+		state = new State(0, Depth, game.board, this);
 		state.GenerateMoves(0);
 		boolean myTurn = true;
 		
