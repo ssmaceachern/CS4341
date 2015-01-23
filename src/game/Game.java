@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import core.Input;
-import core.Output;
 import player.Player;
 
 public class Game {
@@ -35,7 +34,8 @@ public class Game {
 		for (;;) {
 			if (MyTurn) {
 				move = NextMove();
-				Output.Write(String.valueOf(move));
+				System.out.println(String.valueOf(move));
+				System.out.flush();
 			} else {
 				String[] data = Input.Read().split(" ");
 				move = Integer.parseInt(data[0]);

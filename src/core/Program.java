@@ -3,10 +3,11 @@ package core;
 import game.Game;
 
 public class Program {
-	public static final String Name = "Nighthawks";
+	public static final String teamName = "Nighthawks";
 	
 	public static void main(String[] args) throws Exception {
-		OutputName();
+		
+		sendNameToReferee();
 		
 		String[] gameConfig = Input.Read().split(" ");
 		
@@ -20,7 +21,8 @@ public class Program {
         game.Play();
 	}
 	
-	public static void OutputName() {
-		Output.Write(Name);
+	public static void sendNameToReferee() {
+		System.out.println(teamName);
+		System.out.flush();
 	}
 }
