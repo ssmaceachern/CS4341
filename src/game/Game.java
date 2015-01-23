@@ -41,7 +41,7 @@ public class Game {
 	public void Play() throws Exception {
 		int move;
 		
-		for (;;) {
+		while (true) {
 			if (isMyTurn) {
 				move = NextMove();
 				System.out.println(String.valueOf(move));
