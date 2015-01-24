@@ -10,17 +10,17 @@ public class Player {
 	private boolean Timeout;
 
 	private int Depth = 2;
-	
+
 	public Player() {
 		Heuristic = new Heuristic();
 		Timeout = false;
 	}
-	
+
 	public int Decide(Game game) {
 		state = new State(0, Depth, game.board, this);
 		state.GenerateMoves(0);
 		boolean myTurn = true;
-		
+
 		ArrayList<Integer> stack = new ArrayList<Integer>();
 		while (true) {
 			State next = state.Minimax(myTurn);
@@ -32,16 +32,16 @@ public class Player {
 			// unfortunately, this will auto-box our integer
 			stack.add(state.Move);
 		}
-		
+
 		int decision = 0;
-		
-		//try {
-			decision = stack.get(0);
-		//} catch (Exception e) {}
-		
+
+		// try {
+		decision = stack.get(0);
+		// } catch (Exception e) {}
+
 		return decision;
 	}
-	
+
 	public void Stop() {
 		Timeout = true;
 		if (state != null) {

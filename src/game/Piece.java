@@ -2,7 +2,7 @@ package game;
 
 public class Piece {
 	private boolean isMine;
-	
+
 	public Piece(boolean mine) {
 		setMine(mine);
 	}
@@ -15,7 +15,8 @@ public class Piece {
 	}
 
 	/**
-	 * @param isMine the isMine to set
+	 * @param isMine
+	 *            the isMine to set
 	 */
 	public void setMine(boolean isMine) {
 		this.isMine = isMine;

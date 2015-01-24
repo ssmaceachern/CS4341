@@ -4,43 +4,41 @@ import java.util.Comparator;
 
 public class Threat {
 
-	private int x,y,streak,potentialStreak,threat;
+	private int x, y, streak, potentialStreak, threat;
 	private boolean sign;
-	
-	public Threat(int x, int y, int streak, int potentialStreak, boolean sign)
-	{
+
+	public Threat(int x, int y, int streak, int potentialStreak, boolean sign) {
 		this.setX(x);
 		this.setY(y);
 		this.setStreak(streak);
 		this.setPotentialStreak(potentialStreak);
 		this.setSign(sign);
-		setThreat(y%2+1);
+		setThreat(y % 2 + 1);
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	public static Comparator getComparator()
-	{
+	public static Comparator getComparator() {
 		return new Comparator() {
 
 			@Override
 			public int compare(Object o1, Object o2) {
-				
-				Threat t1 = (Threat)o1;
-				Threat t2 = (Threat)o2;
-				
-				if (t1.getX()>t2.getX())
-					return 1; //greater
-				if (t1.getX()==t2.getX()) {
-					if (t1.getY()>t2.getY())
-						return 1; //greater
-					if (t1.getY()==t2.getY())
-						return 0; //equal, impossible
-					if (t1.getY()<t2.getY())
+
+				Threat t1 = (Threat) o1;
+				Threat t2 = (Threat) o2;
+
+				if (t1.getX() > t2.getX())
+					return 1; // greater
+				if (t1.getX() == t2.getX()) {
+					if (t1.getY() > t2.getY())
+						return 1; // greater
+					if (t1.getY() == t2.getY())
+						return 0; // equal, impossible
+					if (t1.getY() < t2.getY())
 						return -1;
 				}
-				if (t1.getX()<t2.getX())
+				if (t1.getX() < t2.getX())
 					return -1;
-				
+
 				return 0;
 			}
 		};
@@ -54,7 +52,8 @@ public class Threat {
 	}
 
 	/**
-	 * @param sign the sign to set
+	 * @param sign
+	 *            the sign to set
 	 */
 	public void setSign(boolean sign) {
 		this.sign = sign;
@@ -68,7 +67,8 @@ public class Threat {
 	}
 
 	/**
-	 * @param streak the streak to set
+	 * @param streak
+	 *            the streak to set
 	 */
 	public void setStreak(int streak) {
 		this.streak = streak;
@@ -82,7 +82,8 @@ public class Threat {
 	}
 
 	/**
-	 * @param x the x to set
+	 * @param x
+	 *            the x to set
 	 */
 	public void setX(int x) {
 		this.x = x;
@@ -96,7 +97,8 @@ public class Threat {
 	}
 
 	/**
-	 * @param y the y to set
+	 * @param y
+	 *            the y to set
 	 */
 	public void setY(int y) {
 		this.y = y;
@@ -110,7 +112,8 @@ public class Threat {
 	}
 
 	/**
-	 * @param potentialStreak the potentialStreak to set
+	 * @param potentialStreak
+	 *            the potentialStreak to set
 	 */
 	public void setPotentialStreak(int potentialStreak) {
 		this.potentialStreak = potentialStreak;
@@ -124,7 +127,8 @@ public class Threat {
 	}
 
 	/**
-	 * @param threat the threat to set
+	 * @param threat
+	 *            the threat to set
 	 */
 	public void setThreat(int threat) {
 		this.threat = threat;

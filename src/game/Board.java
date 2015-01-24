@@ -1,11 +1,12 @@
 package game;
 
 public class Board {
-	private int numToWin,playerNum,TimeLimit,height,width;
+	private int numToWin, playerNum, TimeLimit, height, width;
 	private boolean isMyTurn;
 	private Piece pieces[][];
-	
-	public Board(int height, int width, int numberToWin, int playerNumber, int timeLimit) {
+
+	public Board(int height, int width, int numberToWin, int playerNumber,
+			int timeLimit) {
 		setNumToWin(numberToWin);
 		setPlayerNum(playerNumber);
 		TimeLimit = timeLimit;
@@ -19,7 +20,7 @@ public class Board {
 			}
 		}
 	}
-	
+
 	public Board(Board board) {
 		setNumToWin(board.getNumToWin());
 		setPlayerNum(board.getPlayerNum());
@@ -34,32 +35,32 @@ public class Board {
 			}
 		}
 	}
-	
+
 	public int NumberOfOpenColumns() {
 		int count = 0;
-		
+
 		for (int i = 0; i < getWidth(); i++) {
 			if (getPieces()[i][getHeight() - 1] == null) {
 				count++;
 			}
 		}
-		
+
 		return count;
 	}
-	
+
 	public int[] GetOpenColumns() {
 		int openColumns[] = new int[NumberOfOpenColumns()];
-		
+
 		for (int i = 0, j = 0; i < getWidth(); i++) {
 			if (getPieces()[i][getHeight() - 1] == null) {
 				openColumns[j] = i;
 				j++;
 			}
 		}
-		
+
 		return openColumns;
 	}
-	
+
 	public void HandleMove(boolean mine, int move) {
 		for (int i = 0; i < getHeight(); i++) {
 			if (getPieces()[move][i] == null) {
@@ -77,7 +78,8 @@ public class Board {
 	}
 
 	/**
-	 * @param isMyTurn the isMyTurn to set
+	 * @param isMyTurn
+	 *            the isMyTurn to set
 	 */
 	public void setMyTurn(boolean isMyTurn) {
 		this.isMyTurn = isMyTurn;
@@ -91,7 +93,8 @@ public class Board {
 	}
 
 	/**
-	 * @param pieces the pieces to set
+	 * @param pieces
+	 *            the pieces to set
 	 */
 	public void setPieces(Piece pieces[][]) {
 		this.pieces = pieces;
@@ -105,7 +108,8 @@ public class Board {
 	}
 
 	/**
-	 * @param width the width to set
+	 * @param width
+	 *            the width to set
 	 */
 	public void setWidth(int width) {
 		this.width = width;
@@ -119,7 +123,8 @@ public class Board {
 	}
 
 	/**
-	 * @param height the height to set
+	 * @param height
+	 *            the height to set
 	 */
 	public void setHeight(int height) {
 		this.height = height;
@@ -133,7 +138,8 @@ public class Board {
 	}
 
 	/**
-	 * @param numToWin the numToWin to set
+	 * @param numToWin
+	 *            the numToWin to set
 	 */
 	public void setNumToWin(int numToWin) {
 		this.numToWin = numToWin;
@@ -147,7 +153,8 @@ public class Board {
 	}
 
 	/**
-	 * @param playerNum the playerNum to set
+	 * @param playerNum
+	 *            the playerNum to set
 	 */
 	public void setPlayerNum(int playerNum) {
 		this.playerNum = playerNum;
