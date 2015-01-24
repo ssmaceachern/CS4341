@@ -4,20 +4,30 @@ import java.util.ArrayList;
 
 import game.Game;
 
+/**
+ * 
+ * @author Zach Arnold and Sean MacEachern
+ *
+ */
 public class Player {
-	public Heuristic Heuristic;
+	private Heuristic Heuristic;
 	private State state;
 	private boolean Timeout;
 
 	private int Depth = 2;
 
 	public Player() {
-		Heuristic = new Heuristic();
+		setHeuristic(new Heuristic());
 		Timeout = false;
 	}
 
+	/**
+	 * 
+	 * @param game
+	 * @return
+	 */
 	public int Decide(Game game) {
-		state = new State(0, Depth, game.board, this);
+		state = new State(0, Depth, game.getBoard(), this);
 		state.GenerateMoves(0);
 		boolean myTurn = true;
 
@@ -30,7 +40,7 @@ public class Player {
 			state = next;
 			myTurn = !myTurn;
 			// unfortunately, this will auto-box our integer
-			stack.add(state.Move.getColumn());
+			stack.add(state.getMove().getColumn());
 		}
 
 		int decision = 0;
@@ -42,10 +52,27 @@ public class Player {
 		return decision;
 	}
 
+	/**
+	 * 
+	 */
 	public void Stop() {
 		Timeout = true;
 		if (state != null) {
 			state.Stop();
 		}
+	}
+
+	/**
+	 * @return the heuristic
+	 */
+	public Heuristic getHeuristic() {
+		return Heuristic;
+	}
+
+	/**
+	 * @param heuristic the heuristic to set
+	 */
+	public void setHeuristic(Heuristic heuristic) {
+		Heuristic = heuristic;
 	}
 }

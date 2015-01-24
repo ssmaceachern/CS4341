@@ -9,16 +9,21 @@ import javax.swing.Timer;
 
 import player.Player;
 
+/**
+ * 
+ * @author Zach Arnold and Sean MacEachern
+ *
+ */
 public class Game {
 	/*
 	 * Class declaration variables
 	 */
-	public Timer timer;
-	public int numToWin, playerNum, TimeLimit;
+	private Timer timer;
+	private int numToWin, playerNum, TimeLimit;
 
-	public boolean isMyTurn, isDropUsed;
-	public Board board;
-	public Player player;
+	private boolean isMyTurn, isDropUsed;
+	private Board board;
+	private Player player;
 
 	/**
 	 * 
@@ -40,7 +45,8 @@ public class Game {
 		TimeLimit = timeLimit;
 
 		isMyTurn = playerNum == 0;
-		board = new Board(height, width, numberToWin, playerNumber, timeLimit);
+		isDropUsed = false;
+		setBoard(new Board(height, width, numberToWin, playerNumber, timeLimit));
 		player = new Player();
 	}
 
@@ -68,7 +74,7 @@ public class Game {
 				return;
 			}
 
-			board.HandleMove(isMyTurn, move);
+			getBoard().HandleMove(isMyTurn, move);
 			isMyTurn = !isMyTurn;
 		}
 	}
@@ -110,5 +116,19 @@ public class Game {
 	 */
 	private void stopClock() {
 		timer.stop();
+	}
+
+	/**
+	 * @return the board
+	 */
+	public Board getBoard() {
+		return board;
+	}
+
+	/**
+	 * @param board the board to set
+	 */
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 }

@@ -4,9 +4,19 @@ import java.io.InputStreamReader;
 
 import game.Game;
 
+/**
+ * 
+ * @author Zach Arnold and Sean MacEachern
+ *
+ */
 public class Main {
 	public static final String teamName = "Nighthawks";
 
+	/**
+	 * This is the main program which will play connect-N artificially intelligently
+	 * @param args - (to the program (from the ref.))
+	 * @throws Exception - in case something breaks
+	 */
 	public static void main(String[] args) throws Exception {
 
 		sendNameToReferee();
@@ -26,6 +36,9 @@ public class Main {
 		game.Play();
 	}
 
+	/**
+	 * sends the teamName variable to the console
+	 */
 	public static void sendNameToReferee() {
 		System.out.println(teamName);
 		System.out.flush();

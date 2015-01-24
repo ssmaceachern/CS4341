@@ -6,9 +6,19 @@ import java.util.Collections;
 import game.Board;
 import game.Piece;
 
+/**
+ * 
+ * @author Zach Arnold and Sean MacEachern
+ *
+ */
 public class Heuristic {
 
 	@SuppressWarnings("unchecked")
+	/**
+	 * 
+	 * @param board
+	 * @return
+	 */
 	public int Evaluate(Board board) {
 
 		if (board == null)

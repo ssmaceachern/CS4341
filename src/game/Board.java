@@ -1,10 +1,23 @@
 package game;
 
+/**
+ * 
+ * @author Zach Arnold and Sean MacEachern
+ *
+ */
 public class Board {
 	private int numToWin, playerNum, TimeLimit, height, width;
 	private boolean isMyTurn;
 	private Piece pieces[][];
 
+	/**
+	 *  Constructor for the Board class
+	 * @param height of the board
+	 * @param width of the board
+	 * @param numberToWin number of consecutive pieces needed to win
+	 * @param playerNumber first or second player to move
+	 * @param timeLimit amount of time for each move
+	 */
 	public Board(int height, int width, int numberToWin, int playerNumber,
 			int timeLimit) {
 		setNumToWin(numberToWin);
@@ -21,6 +34,11 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Secondary constructor for the board class (this time when it's initialized with a board.) 
+	 * Copy constructor basically
+	 * @param board the game board to copy in
+	 */
 	public Board(Board board) {
 		setNumToWin(board.getNumToWin());
 		setPlayerNum(board.getPlayerNum());
@@ -36,10 +54,15 @@ public class Board {
 		}
 	}
 
+	/**
+	 * 
+	 * @return the number of open columns on the board
+	 */
 	public int NumberOfOpenColumns() {
 		int count = 0;
 
 		for (int i = 0; i < getWidth(); i++) {
+			//if the pieces at row i isn't full...increase the count
 			if (getPieces()[i][getHeight() - 1] == null) {
 				count++;
 			}
@@ -48,9 +71,14 @@ public class Board {
 		return count;
 	}
 
+	/**
+	 * 
+	 * @return an array of the open columns currently playable on the board
+	 */
 	public int[] GetOpenColumns() {
 		int openColumns[] = new int[NumberOfOpenColumns()];
-
+		
+		//similarly to the number of open columns, this time just record the column number in the array
 		for (int i = 0, j = 0; i < getWidth(); i++) {
 			if (getPieces()[i][getHeight() - 1] == null) {
 				openColumns[j] = i;
@@ -61,6 +89,11 @@ public class Board {
 		return openColumns;
 	}
 
+	/**
+	 * 
+	 * @param mine
+	 * @param move
+	 */
 	public void HandleMove(boolean mine, Move move) {
 		for (int i = 0; i < getHeight(); i++) {
 			// TODO handle pop-out here

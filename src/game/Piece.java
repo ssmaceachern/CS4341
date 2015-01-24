@@ -1,5 +1,10 @@
 package game;
 
+/**
+ * 
+ * @author Zach Arnold and Sean MacEachern
+ *
+ */
 public class Piece {
 	private boolean isMine;
 

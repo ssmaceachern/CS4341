@@ -2,6 +2,11 @@ package player;
 
 import java.util.Comparator;
 
+/**
+ * 
+ * @author Zach Arnold and Sean MacEachern
+ *
+ */
 public class Threat {
 
 	private int x, y, streak, potentialStreak, threat;

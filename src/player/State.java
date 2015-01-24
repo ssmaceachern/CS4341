@@ -3,13 +3,17 @@ package player;
 import game.Board;
 import game.Move;
 
+/**
+ * 
+ * @author Zach Arnold and Sean MacEachern
+ *
+ */
 public class State {
-	public Move Move;
-	public int MaxDepth;
-	public int Score;
-	public Board Board;
-	public Player Player;
-	public State Moves[];
+	private Move Move;
+	private int MaxDepth, Score;
+	private Board Board;
+	private Player Player;
+	private State Moves[];
 	private boolean Timeout;
 
 	private static int alpha;
@@ -17,14 +21,25 @@ public class State {
 	private static boolean max;
 
 	//TODO I think this is where we handle the pop-out 
+	/**
+	 * 
+	 * @param column
+	 * @param maxDepth
+	 * @param board
+	 * @param player
+	 */
 	public State(int column, int maxDepth, Board board, Player player) {
-		Move.setColumn(column);
+		getMove().setColumn(column);
 		MaxDepth = maxDepth;
-		Score = player.Heuristic.Evaluate(board);
+		Score = player.getHeuristic().Evaluate(board);
 		Board = board;
 		Player = player;
 	}
 
+	/**
+	 * 
+	 * @param level
+	 */
 	public void GenerateMoves(int level) {
 		if (level == 0) {
 			alpha = Integer.MIN_VALUE; // best move yet
@@ -39,9 +54,9 @@ public class State {
 
 		for (int i = 0; i < openColumns.length; i++) {
 			Board board = new Board(Board);
-			Move.setColumn(openColumns[i]);
-			board.HandleMove(Board.isMyTurn(), Move);
-			Moves[i] = new State(Move.getColumn(), MaxDepth, board, Player);
+			getMove().setColumn(openColumns[i]);
+			board.HandleMove(Board.isMyTurn(), getMove());
+			Moves[i] = new State(getMove().getColumn(), MaxDepth, board, Player);
 			if (max) {
 				if (Moves[i].Score > alpha)
 					alpha = Moves[i].Score;
@@ -58,6 +73,11 @@ public class State {
 		}
 	}
 
+	/**
+	 * 
+	 * @param maximize
+	 * @return
+	 */
 	public State Minimax(boolean maximize) {
 		int score = maximize ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 
@@ -78,19 +98,51 @@ public class State {
 		return maximized;
 	}
 
+	/**
+	 * 
+	 */
 	public void Stop() {
 		Timeout = true;
 	}
 
+	/**
+	 * 
+	 * @param score
+	 * @param best
+	 * @param maximize
+	 * @return
+	 */
 	private boolean IsBetter(int score, int best, boolean maximize) {
 		return maximize ? score > best : score < best;
 	}
 
+	/**
+	 * 
+	 * @param score
+	 * @param alpha
+	 * @param beta
+	 * @param maximize
+	 * @return
+	 */
 	private boolean IsBetterAlphaBeta(int score, int alpha, int beta,
 			boolean maximize) {
 		if (maximize)
 			return score > alpha;
 		else
 			return score < beta;
+	}
+
+	/**
+	 * @return the move
+	 */
+	public Move getMove() {
+		return Move;
+	}
+
+	/**
+	 * @param move the move to set
+	 */
+	public void setMove(Move move) {
+		Move = move;
 	}
 }
