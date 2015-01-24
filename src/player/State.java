@@ -38,7 +38,7 @@ public class State {
 		for (int i = 0; i < openColumns.length; i++) {
 			Board board = new Board(Board);
 			int move = openColumns[i];
-			board.HandleMove(Board.MyTurn, move);
+			board.HandleMove(Board.isMyTurn(), move);
 			Moves[i] = new State(move, MaxDepth, board, Player);
 			if (max) {
 				if (Moves[i].Score>alpha)

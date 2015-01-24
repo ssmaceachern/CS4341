@@ -1,40 +1,36 @@
 package game;
 
 public class Board {
-	public int NumberToWin;
-	public int PlayerNumber;
-	public int TimeLimit;
-	public int Height;
-	public int Width;
-	public boolean MyTurn;
-	public Piece Pieces[][];
+	private int numToWin,playerNum,TimeLimit,height,width;
+	private boolean isMyTurn;
+	private Piece pieces[][];
 	
 	public Board(int height, int width, int numberToWin, int playerNumber, int timeLimit) {
-		NumberToWin = numberToWin;
-		PlayerNumber = playerNumber;
+		setNumToWin(numberToWin);
+		setPlayerNum(playerNumber);
 		TimeLimit = timeLimit;
-		MyTurn = PlayerNumber == 0;
-		Height = height;
-		Width = width;
-		Pieces = new Piece[width][height];
+		setMyTurn(getPlayerNum() == 0);
+		height = height;
+		width = width;
+		setPieces(new Piece[width][height]);
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				Pieces[i][j] = null;
+				getPieces()[i][j] = null;
 			}
 		}
 	}
 	
 	public Board(Board board) {
-		NumberToWin = board.NumberToWin;
-		PlayerNumber = board.PlayerNumber;
+		setNumToWin(board.getNumToWin());
+		setPlayerNum(board.getPlayerNum());
 		TimeLimit = board.TimeLimit;
-		MyTurn = !board.MyTurn;
-		Height = board.Height;
-		Width = board.Width;
-		Pieces = new Piece[Width][Height];
-		for (int i = 0; i < Width; i++) {
-			for (int j = 0; j < Height; j++) {
-				Pieces[i][j] = board.Pieces[i][j];
+		setMyTurn(!board.isMyTurn());
+		setHeight(board.getHeight());
+		setWidth(board.getWidth());
+		setPieces(new Piece[getWidth()][getHeight()]);
+		for (int i = 0; i < getWidth(); i++) {
+			for (int j = 0; j < getHeight(); j++) {
+				getPieces()[i][j] = board.getPieces()[i][j];
 			}
 		}
 	}
@@ -42,8 +38,8 @@ public class Board {
 	public int NumberOfOpenColumns() {
 		int count = 0;
 		
-		for (int i = 0; i < Width; i++) {
-			if (Pieces[i][Height - 1] == null) {
+		for (int i = 0; i < getWidth(); i++) {
+			if (getPieces()[i][getHeight() - 1] == null) {
 				count++;
 			}
 		}
@@ -54,8 +50,8 @@ public class Board {
 	public int[] GetOpenColumns() {
 		int openColumns[] = new int[NumberOfOpenColumns()];
 		
-		for (int i = 0, j = 0; i < Width; i++) {
-			if (Pieces[i][Height - 1] == null) {
+		for (int i = 0, j = 0; i < getWidth(); i++) {
+			if (getPieces()[i][getHeight() - 1] == null) {
 				openColumns[j] = i;
 				j++;
 			}
@@ -65,11 +61,95 @@ public class Board {
 	}
 	
 	public void HandleMove(boolean mine, int move) {
-		for (int i = 0; i < Height; i++) {
-			if (Pieces[move][i] == null) {
-				Pieces[move][i] = new Piece(mine);
+		for (int i = 0; i < getHeight(); i++) {
+			if (getPieces()[move][i] == null) {
+				getPieces()[move][i] = new Piece(mine);
 				break;
 			}
 		}
+	}
+
+	/**
+	 * @return the isMyTurn
+	 */
+	public boolean isMyTurn() {
+		return isMyTurn;
+	}
+
+	/**
+	 * @param isMyTurn the isMyTurn to set
+	 */
+	public void setMyTurn(boolean isMyTurn) {
+		this.isMyTurn = isMyTurn;
+	}
+
+	/**
+	 * @return the pieces
+	 */
+	public Piece[][] getPieces() {
+		return pieces;
+	}
+
+	/**
+	 * @param pieces the pieces to set
+	 */
+	public void setPieces(Piece pieces[][]) {
+		this.pieces = pieces;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	/**
+	 * @return the numToWin
+	 */
+	public int getNumToWin() {
+		return numToWin;
+	}
+
+	/**
+	 * @param numToWin the numToWin to set
+	 */
+	public void setNumToWin(int numToWin) {
+		this.numToWin = numToWin;
+	}
+
+	/**
+	 * @return the playerNum
+	 */
+	public int getPlayerNum() {
+		return playerNum;
+	}
+
+	/**
+	 * @param playerNum the playerNum to set
+	 */
+	public void setPlayerNum(int playerNum) {
+		this.playerNum = playerNum;
 	}
 }

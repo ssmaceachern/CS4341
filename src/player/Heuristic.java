@@ -14,7 +14,7 @@ public class Heuristic {
 			return 0;
 		
 		ArrayList<Threat> threats = new ArrayList<Threat>();
-		Piece[][] pieces = board.Pieces;
+		Piece[][] pieces = board.getPieces();
 		boolean sign=true;
 		int streak=0;
 		int potentialStreak=0;
@@ -27,15 +27,15 @@ public class Heuristic {
 		int emptyY=-1;
 		
 		//Check vertical threats
-		for (int x=0;x<board.Width;x++) {
+		for (int x=0;x<board.getWidth();x++) {
 			
 			if (pieces[x][0]==null) //empty column
 				continue;
 			streak=1;
 			potentialStreak=0;
-			sign=pieces[x][0].Mine;
+			sign=pieces[x][0].isMine();
 			previousEmpty=false;
-			for (int y=1;y<board.Height;y++)
+			for (int y=1;y<board.getHeight();y++)
 			{
 				if (pieces[x][y]==null) { //empty space
 					if (!previousEmpty) {
@@ -45,13 +45,13 @@ public class Heuristic {
 					potentialStreak++;
 					previousEmpty=true;
 				} else {
-					if (sign!=pieces[x][y].Mine) //broke the streak
+					if (sign!=pieces[x][y].isMine()) //broke the streak
 					{
-						if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+						if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 							threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 						}
 						streak=1;
-						sign = pieces[x][y].Mine;
+						sign = pieces[x][y].isMine();
 						if (!previousEmpty) //Decide to count empty spaces or not
 							potentialStreak=0;
 					} else {
@@ -63,7 +63,7 @@ public class Heuristic {
 			
 			if (previousEmpty || streak==1)
 			{
-				if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+				if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 					threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 				}
 			}
@@ -72,11 +72,11 @@ public class Heuristic {
 		//copy-paste, i know. it hurts.
 		//Check horizontal threats
 		boolean noPieceYet=true;
-		for (int y=0;y<board.Height;y++) {
+		for (int y=0;y<board.getHeight();y++) {
 			streak=0;
 			potentialStreak=0;
 			noPieceYet=true;
-			for (int x=0;x<board.Width;x++)
+			for (int x=0;x<board.getWidth();x++)
 			{
 				if (pieces[x][y]==null) { //empty space
 					if (!previousEmpty) {
@@ -87,14 +87,14 @@ public class Heuristic {
 					previousEmpty=true;
 				} else {
 					if (noPieceYet) {
-						sign=pieces[x][y].Mine;
+						sign=pieces[x][y].isMine();
 						streak++;
-					} else if (sign!=pieces[x][y].Mine) { //broke the streak
-						if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+					} else if (sign!=pieces[x][y].isMine()) { //broke the streak
+						if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 							threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 						}
 						streak=1;
-						sign = pieces[x][y].Mine;
+						sign = pieces[x][y].isMine();
 						if (!previousEmpty) //Decide to count empty spaces or not
 							potentialStreak=0;
 					} else {
@@ -107,7 +107,7 @@ public class Heuristic {
 			
 			if ((previousEmpty || streak==1) && !noPieceYet)
 			{
-				if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+				if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 					threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 				}
 			}
@@ -116,7 +116,7 @@ public class Heuristic {
 		
 		//Check diagonal threats on bottom half of board
 		int y=0;
-		for (int i=0;i<board.Width;i++) {
+		for (int i=0;i<board.getWidth();i++) {
 			
 			
 			streak=0;
@@ -124,8 +124,8 @@ public class Heuristic {
 			noPieceYet=true;
 			y=0;
 			
-			for (int x=i;x<board.Width;x++)  {
-				if (y>=board.Height) //hit the end of this diagonal
+			for (int x=i;x<board.getWidth();x++)  {
+				if (y>=board.getHeight()) //hit the end of this diagonal
 					break;
 				if (pieces[x][y]==null) { //empty space
 					if (!previousEmpty) {
@@ -137,14 +137,14 @@ public class Heuristic {
 					
 				} else {
 					if (noPieceYet) {
-						sign=pieces[x][y].Mine;
+						sign=pieces[x][y].isMine();
 						streak++;
-					} else if (sign!=pieces[x][y].Mine) { //broke the streak
-						if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+					} else if (sign!=pieces[x][y].isMine()) { //broke the streak
+						if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 							threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 						}
 						streak=1;
-						sign = pieces[x][y].Mine;
+						sign = pieces[x][y].isMine();
 						if (!previousEmpty) //Decide to count empty spaces or not
 							potentialStreak=0;
 					} else {
@@ -159,7 +159,7 @@ public class Heuristic {
 			
 			if ((previousEmpty || streak==1) && !noPieceYet)
 			{
-				if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+				if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 					threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 				}
 			}
@@ -167,15 +167,15 @@ public class Heuristic {
 		
 		//Check diagonal threats on top half of board
 		int x=0;
-		for (int i=0;i<board.Height;i++) {
+		for (int i=0;i<board.getHeight();i++) {
 			
 			streak=0;
 			potentialStreak=0;
 			noPieceYet=true;
 			x=0;
 			
-			for (y=i;y<board.Height;y++)  {
-				if (x>=board.Width) //hit the end of this diagonal
+			for (y=i;y<board.getHeight();y++)  {
+				if (x>=board.getWidth()) //hit the end of this diagonal
 					break;
 				if (pieces[x][y]==null) { //empty space
 					if (!previousEmpty) {
@@ -186,14 +186,14 @@ public class Heuristic {
 					previousEmpty=true;
 				} else {
 					if (noPieceYet) {
-						sign=pieces[x][y].Mine;
+						sign=pieces[x][y].isMine();
 						streak++;
-					} else if (sign!=pieces[x][y].Mine) { //broke the streak
-						if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+					} else if (sign!=pieces[x][y].isMine()) { //broke the streak
+						if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 							threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 						}
 						streak=1;
-						sign = pieces[x][y].Mine;
+						sign = pieces[x][y].isMine();
 						if (!previousEmpty) //Decide to count empty spaces or not
 							potentialStreak=0;
 					} else {
@@ -208,7 +208,7 @@ public class Heuristic {
 			
 			if ((previousEmpty || streak==1) && !noPieceYet)
 			{
-				if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+				if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 					threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 				}
 			}
@@ -216,14 +216,14 @@ public class Heuristic {
 		
 		//downard diagonals
 		//Check diagonal threats on bottom half of board
-		for (int i=board.Width-1;i>=0;i--) {
+		for (int i=board.getWidth()-1;i>=0;i--) {
 			streak=0;
 			potentialStreak=0;
 			noPieceYet=true;
 			y=0;
 			
 			for (x=i;x>=0;x--)  {
-				if (y>=board.Height) //hit the end of this diagonal
+				if (y>=board.getHeight()) //hit the end of this diagonal
 					break;
 				if (pieces[x][y]==null) { //empty space
 					if (!previousEmpty) {
@@ -234,14 +234,14 @@ public class Heuristic {
 					previousEmpty=true;
 				} else {
 					if (noPieceYet) {
-						sign=pieces[x][y].Mine;
+						sign=pieces[x][y].isMine();
 						streak++;
-					} else if (sign!=pieces[x][y].Mine) { //broke the streak
-						if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+					} else if (sign!=pieces[x][y].isMine()) { //broke the streak
+						if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 							threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 						}
 						streak=1;
-						sign = pieces[x][y].Mine;
+						sign = pieces[x][y].isMine();
 						if (!previousEmpty) //Decide to count empty spaces or not
 							potentialStreak=0;
 					} else {
@@ -256,21 +256,21 @@ public class Heuristic {
 			
 			if ((previousEmpty || streak==1) && !noPieceYet)
 			{
-				if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+				if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 					threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 				}
 			}
 		}
 		//downard diagonals
 		//Check diagonal threats on bottom half
-		for (int i=0;i<board.Height;i++) {
+		for (int i=0;i<board.getHeight();i++) {
 			
 			streak=0;
 			potentialStreak=0;
 			noPieceYet=true;
-			x=board.Width-1;
+			x=board.getWidth()-1;
 			
-			for (y=i;y<board.Height;y++)  {  
+			for (y=i;y<board.getHeight();y++)  {  
 				if (x<0) //hit the end of this diagonal
 					break;
 				if (pieces[x][y]==null) { //empty space
@@ -282,14 +282,14 @@ public class Heuristic {
 					previousEmpty=true;
 				} else {
 					if (noPieceYet) {
-						sign=pieces[x][y].Mine;
+						sign=pieces[x][y].isMine();
 						streak++;
-					} else if (sign!=pieces[x][y].Mine) { //broke the streak
-						if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+					} else if (sign!=pieces[x][y].isMine()) { //broke the streak
+						if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 							threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 						}
 						streak=1;
-						sign = pieces[x][y].Mine;
+						sign = pieces[x][y].isMine();
 						if (!previousEmpty) //Decide to count empty spaces or not
 							potentialStreak=0;
 					} else {
@@ -304,7 +304,7 @@ public class Heuristic {
 			
 			if ((previousEmpty || streak==1) && !noPieceYet)
 			{
-				if (streak+potentialStreak>=board.NumberToWin) { //remember the threat
+				if (streak+potentialStreak>=board.getNumToWin()) { //remember the threat
 					threats.add(new Threat(emptyX, emptyY, streak, potentialStreak, sign)); //I can look at even/odd later
 				}
 			}
@@ -317,16 +317,16 @@ public class Heuristic {
 		boolean potentialWin=false;
 		for (int i=0;i<threats.size();i++) {
 			t = threats.get(i);
-			if((!t.sign)&&(t.streak==board.NumberToWin-1)) { //opponent has n-1 in a row
-				if (t.y>0) { //can the opponent play there and win
-					if (pieces[t.x][t.y-1]!=null) 
+			if((!t.isSign())&&(t.getStreak()==board.getNumToWin()-1)) { //opponent has n-1 in a row
+				if (t.getY()>0) { //can the opponent play there and win
+					if (pieces[t.getX()][t.getY()-1]!=null) 
 						return Integer.MIN_VALUE; //lose condition!	
 				} else {
 					return Integer.MIN_VALUE;//lose condition!
 				}
-			} else if ((t.sign)&&(t.streak==board.NumberToWin)) {
-				if (t.y>0) {
-					if (pieces[t.x][t.y-1]!=null)
+			} else if ((t.isSign())&&(t.getStreak()==board.getNumToWin())) {
+				if (t.getY()>0) {
+					if (pieces[t.getX()][t.getY()-1]!=null)
 						potentialWin=true; //possible win, as long as we don't notice a lose
 				}
 			}
@@ -342,9 +342,9 @@ public class Heuristic {
 		for (int i=(threats.size()-1);i>0;i--) { //if a threat is 
 			t=threats.get(i);
 			Threat t2 = threats.get(i-1);
-			if (t.x==t2.x) {
-				if (t.y>=t2.y) {
-					if (t.sign!=t2.sign) {
+			if (t.getX()==t2.getX()) {
+				if (t.getY()>=t2.getY()) {
+					if (t.isSign()!=t2.isSign()) {
 						newThreats.remove(i);
 						trash.add(t);
 					}
@@ -358,13 +358,13 @@ public class Heuristic {
 		for (int i=0;i<threats.size();i++) {
 			t=threats.get(i);
 			
-			val=t.streak*100;
-			val+=t.potentialStreak*10;
-			val+=t.y;
+			val=t.getStreak()*100;
+			val+=t.getPotentialStreak()*10;
+			val+=t.getY();
 			
-			val*=(t.threat==board.PlayerNumber) ? 1.5 : 1; //bonus, it's in the preferred row
+			val*=(t.getThreat()==board.getPlayerNum()) ? 1.5 : 1; //bonus, it's in the preferred row
 			
-			if (!t.sign) { //opponent threat
+			if (!t.isSign()) { //opponent threat
 				val*=-1;
 				val--; //play defensively
 			}
