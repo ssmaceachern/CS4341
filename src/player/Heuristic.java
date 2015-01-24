@@ -8,6 +8,7 @@ import game.Piece;
 
 public class Heuristic {
 
+	@SuppressWarnings("unchecked")
 	public int Evaluate(Board board) {
 
 		if (board == null)

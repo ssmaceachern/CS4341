@@ -11,8 +11,8 @@ public class Board {
 		setPlayerNum(playerNumber);
 		TimeLimit = timeLimit;
 		setMyTurn(getPlayerNum() == 0);
-		height = height;
-		width = width;
+		this.height = height;
+		this.width = width;
 		setPieces(new Piece[width][height]);
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
@@ -61,10 +61,11 @@ public class Board {
 		return openColumns;
 	}
 
-	public void HandleMove(boolean mine, int move) {
+	public void HandleMove(boolean mine, Move move) {
 		for (int i = 0; i < getHeight(); i++) {
-			if (getPieces()[move][i] == null) {
-				getPieces()[move][i] = new Piece(mine);
+			// TODO handle pop-out here
+			if (getPieces()[move.getColumn()][i] == null) {
+				getPieces()[move.getColumn()][i] = new Piece(mine);
 				break;
 			}
 		}

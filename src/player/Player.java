@@ -30,7 +30,7 @@ public class Player {
 			state = next;
 			myTurn = !myTurn;
 			// unfortunately, this will auto-box our integer
-			stack.add(state.Move);
+			stack.add(state.Move.getColumn());
 		}
 
 		int decision = 0;

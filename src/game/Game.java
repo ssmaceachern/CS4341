@@ -45,21 +45,23 @@ public class Game {
 	}
 
 	public void Play() throws Exception {
-		int move;
+		Move move = null;
 
 		while (true) {
 			if (isMyTurn) {
-				move = NextMove();
-				System.out.println(String.valueOf(move));
+				move = nextMove();
+				System.out.println(String.valueOf(move.getColumn()) + " "
+						+ move.getPopOut());
 				System.out.flush();
 			} else {
 				BufferedReader streamReader = new BufferedReader(
 						new InputStreamReader(System.in));
 				String[] data = streamReader.readLine().split(" ");
-				move = Integer.parseInt(data[0]);
+				move.setColumn(Integer.parseInt(data[0]));
+				move.setPopOut(Integer.parseInt(data[1]));
 			}
 
-			switch (move) {
+			switch (move.getColumn()) {
 			case -1:
 			case -2:
 			case -3:
@@ -71,17 +73,28 @@ public class Game {
 		}
 	}
 
-	private int NextMove() {
-		int move = 0;
+	/**
+	 * next move used the Heuristic functions from the player class to make a
+	 * best guess for the next move
+	 * 
+	 * @return the Move to be made
+	 */
+	private Move nextMove() {
+		Move move = new Move(0, 0);
 
-		StartClock();
-		move = player.Decide(this);
-		StopClock();
+		startClock();
+		move.setColumn(player.Decide(this));
+		// TODO Handle popout here somehow
+		stopClock();
 
 		return move;
 	}
 
-	private void StartClock() {
+	/**
+	 * starts the clock and sets a task to stop the player before time expires
+	 * with the referee
+	 */
+	private void startClock() {
 		int delay = (TimeLimit / 2) * 1000;
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -92,7 +105,10 @@ public class Game {
 		timer.start();
 	}
 
-	private void StopClock() {
+	/**
+	 * simply stops the timer
+	 */
+	private void stopClock() {
 		timer.stop();
 	}
 }

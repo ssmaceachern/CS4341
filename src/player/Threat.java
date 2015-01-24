@@ -16,6 +16,7 @@ public class Threat {
 		setThreat(y % 2 + 1);
 	}
 
+	
 	@SuppressWarnings("rawtypes")
 	public static Comparator getComparator() {
 		return new Comparator() {

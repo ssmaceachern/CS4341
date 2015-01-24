@@ -1,9 +1,10 @@
 package player;
 
 import game.Board;
+import game.Move;
 
 public class State {
-	public int Move;
+	public Move Move;
 	public int MaxDepth;
 	public int Score;
 	public Board Board;
@@ -15,8 +16,9 @@ public class State {
 	private static int beta;
 	private static boolean max;
 
-	public State(int move, int maxDepth, Board board, Player player) {
-		Move = move;
+	//TODO I think this is where we handle the pop-out 
+	public State(int column, int maxDepth, Board board, Player player) {
+		Move.setColumn(column);
 		MaxDepth = maxDepth;
 		Score = player.Heuristic.Evaluate(board);
 		Board = board;
@@ -37,9 +39,9 @@ public class State {
 
 		for (int i = 0; i < openColumns.length; i++) {
 			Board board = new Board(Board);
-			int move = openColumns[i];
-			board.HandleMove(Board.isMyTurn(), move);
-			Moves[i] = new State(move, MaxDepth, board, Player);
+			Move.setColumn(openColumns[i]);
+			board.HandleMove(Board.isMyTurn(), Move);
+			Moves[i] = new State(Move.getColumn(), MaxDepth, board, Player);
 			if (max) {
 				if (Moves[i].Score > alpha)
 					alpha = Moves[i].Score;
