@@ -1,8 +1,10 @@
 package game;
 
-
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 
@@ -13,33 +15,39 @@ public class Main {
 	public static final String teamName = "Nighthawks";
 
 	/**
-	 * This is the main program which will play connect-N artificially intelligently
-	 * @param args - (to the program (from the ref.))
-	 * @throws Exception - in case something breaks
+	 * This is the main program which will play connect-N artificially
+	 * intelligently
+	 * 
+	 * @param args
+	 *            - (to the program (from the ref.))
+	 * @throws Exception
+	 *             - in case something breaks
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		sendNameToReferee();
 
 		BufferedReader streamReader = new BufferedReader(new InputStreamReader(
 				System.in));
-		String[] gameConfig;
-		try {
-			gameConfig = streamReader.readLine().split(" ");
-			int height = Integer.parseInt(gameConfig[0]);
-			int width = Integer.parseInt(gameConfig[1]);
-			int numberToWin = Integer.parseInt(gameConfig[2]);
-			int playerNumber = Integer.parseInt(gameConfig[3]);
-			int timeLimit = Integer.parseInt(gameConfig[4]);
+		while (true) {
 
-			Game game = new Game(height, width, numberToWin, playerNumber,
-					timeLimit);
-			game.Play();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			String s = streamReader.readLine();
+			List<String> gameConfig = Arrays.asList(s.split(" "));
+
+			if (gameConfig.size() == 5) { // ls contains game info
+				int height = Integer.parseInt(gameConfig.get(0));
+				int width = Integer.parseInt(gameConfig.get(1));
+				int numberToWin = Integer.parseInt(gameConfig.get(2));
+				int playerNumber = Integer.parseInt(gameConfig.get(3));
+				int timeLimit = Integer.parseInt(gameConfig.get(4));
+
+				Game game = new Game(height, width, numberToWin, playerNumber,
+						timeLimit);
+				game.Play();
+			}
+
 		}
-		
+
 	}
 
 	/**

@@ -2,7 +2,7 @@
 <!-- Configuration of the Ant build system to generate a Jar file --> 
 <project name="CS4341" default="CreateJar">
 	<target name="CreateJar">
-	<jar destfile="testPlayer3.jar">
+	<jar destfile="../testPlayer3.jar">
 		
 		 <fileset dir="../bin">
 		    <include name="game/**"/>

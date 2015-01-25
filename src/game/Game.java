@@ -50,14 +50,19 @@ public class Game {
 		player = new Player();
 	}
 
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	public void Play() throws Exception {
-		Move move = null;
+		Move move = new Move(0,1);
 		System.err.println("Here");
 		while (true) {
 			if (isMyTurn) {
 				move = nextMove();
+				//TODO FIX THIS!!
 				System.out.println(String.valueOf(move.getColumn()) + " "
-						+ move.getPopOut());
+						+ 1);
 				System.out.flush();
 			} else {
 				BufferedReader streamReader = new BufferedReader(
