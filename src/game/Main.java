@@ -17,23 +17,29 @@ public class Main {
 	 * @param args - (to the program (from the ref.))
 	 * @throws Exception - in case something breaks
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 
 		sendNameToReferee();
 
 		BufferedReader streamReader = new BufferedReader(new InputStreamReader(
 				System.in));
-		String[] gameConfig = streamReader.readLine().split(" ");
+		String[] gameConfig;
+		try {
+			gameConfig = streamReader.readLine().split(" ");
+			int height = Integer.parseInt(gameConfig[0]);
+			int width = Integer.parseInt(gameConfig[1]);
+			int numberToWin = Integer.parseInt(gameConfig[2]);
+			int playerNumber = Integer.parseInt(gameConfig[3]);
+			int timeLimit = Integer.parseInt(gameConfig[4]);
 
-		int height = Integer.parseInt(gameConfig[0]);
-		int width = Integer.parseInt(gameConfig[1]);
-		int numberToWin = Integer.parseInt(gameConfig[2]);
-		int playerNumber = Integer.parseInt(gameConfig[3]);
-		int timeLimit = Integer.parseInt(gameConfig[4]);
-
-		Game game = new Game(height, width, numberToWin, playerNumber,
-				timeLimit);
-		game.Play();
+			Game game = new Game(height, width, numberToWin, playerNumber,
+					timeLimit);
+			game.Play();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**

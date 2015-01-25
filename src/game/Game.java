@@ -52,7 +52,7 @@ public class Game {
 
 	public void Play() throws Exception {
 		Move move = null;
-
+		System.err.println("Here");
 		while (true) {
 			if (isMyTurn) {
 				move = nextMove();
