@@ -132,8 +132,9 @@ public class Referee {
 					   }
 				}
 				else{
-					System.out.println("Invalid Move. ");	
+					System.out.println("Invalid Move by Player: " + this.currentPlayer);	
 					this.winner= this.currentPlayer==1? 2 : 1;
+					System.out.println("Winner is : " + this.winner);
 					}
 		    }
 			
@@ -182,24 +183,37 @@ public class Referee {
 		}
 		
 		if(this.winner==this.currentPlayer){
-			if(this.currentPlayer==this.player1)
-				this.tellPlayer1(Integer.toString(-1));				
-			else
-				this.tellPlayer2(Integer.toString(-1));
+			if(this.currentPlayer==this.player1){
+				this.tellPlayer1("win");	
+				this.tellPlayer2("lose");	
+			}
+							
+			else{
+				this.tellPlayer2("win");	
+				this.tellPlayer1("lose");	
+			}
 		}
 		  
 		else if(this.winner==0){
-			if(this.currentPlayer==this.player1)
-				this.tellPlayer1(Integer.toString(-3));				
-			else
-				this.tellPlayer2(Integer.toString(-3));
+			if(this.currentPlayer==this.player1){
+				this.tellPlayer1("draw");	
+				this.tellPlayer2("draw");	
+			}			
+			else{
+				this.tellPlayer1("draw");	
+				this.tellPlayer2("draw");	
+			}		
 		}
 		else
 		{
-			if(this.currentPlayer==this.player1)
-				this.tellPlayer1(Integer.toString(-2));				
-			else
-				this.tellPlayer2(Integer.toString(-2));
+			if(this.currentPlayer==this.player1){
+				this.tellPlayer1("lose");	
+				this.tellPlayer2("win");	
+			}					
+			else{
+				this.tellPlayer1("win");	
+				this.tellPlayer2("lose");	
+			}		
 		}
 		}
 
@@ -311,6 +325,7 @@ public class Referee {
 		
 		this.sendGameInfo(null);
 		this.printGameOverSign();	
+		System.exit(0);
 	}
 	
 
@@ -338,6 +353,7 @@ public class Referee {
             	 winner=  currentPlayer==1? 2 : 1;
             	try {
 					gameOver();
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
