@@ -13,3 +13,8 @@ properties and go to Builders > Create Player > Edit. Re-upload the build.xml fi
 The program was compiled with Java SDK/SRE 8. The Referee.JAR may not run on earlier version so we would advise running the program on an updated computer for maximum satisfaction.
 
 Neglect the 'search' folder. It is evil and full of nasty viruses.
+
+Some known good run configs:
+"java -jar testPlayer3.jar" "java -jar testPlayer3.jar" 6 7 5 10 10
+"java -jar testPlayer3.jar" "java -jar testPlayer2.jar" 6 7 3 10 10
+"java -jar testPlayer1.jar" "java -jar testPlayer3.jar" 8 9 5 10 10
