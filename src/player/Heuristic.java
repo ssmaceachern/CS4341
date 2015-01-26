@@ -12,6 +12,215 @@ import game.Piece;
  *
  */
 public class Heuristic {
+	
+	public int Evaluate2(Board board) {
+		int points = 0;
+		int eval = 0;
+		int row;
+		int rows = board.getWidth();
+		int sq;
+		int column;
+		int cols = board.getHeight();
+		int posn[][] = new int[rows][cols];
+		for (int sr = 0; sr < rows; sr++) {
+			for(int sc = 0; sc < cols; sc++){
+				if(board.getPieces()[sr][sc].isMine())
+					posn[sr][sc] = 1;
+				else if(!board.getPieces()[sr][sc].isMine()){
+					posn[sr][sc] = 2;
+				}else{
+					posn[sr][sc] = 0;
+				}
+			}
+		}
+		int type = 0;
+
+		for (row = 0; row < rows; row++) {
+			for (column = 0; column < cols - 3; column++) {
+				if (posn[row][column] != 0
+						&& posn[row][column] == posn[row][column + 1]
+						&& posn[row][column] == posn[row][column + 2]
+						&& posn[row][column] == posn[row][column + 3]) {
+					eval = -1000;
+				}
+			}
+		}
+
+		// check for a vertical win
+		for (row = 0; row < rows - 3; row++) {
+			for (column = 0; column < cols; column++) {
+				if (posn[row][column] != 0
+						&& posn[row][column] == posn[row + 1][column]
+						&& posn[row][column] == posn[row + 2][column]
+						&& posn[row][column] == posn[row + 3][column]) {
+					eval = -1000;
+				}
+			}
+		}
+
+		// check for a diagonal win (positive slope)
+		for (row = 0; row < rows - 3; row++) {
+			for (column = 0; column < cols - 3; column++) {
+				if (posn[row][column] != 0
+						&& posn[row][column] == posn[row + 1][column + 1]
+						&& posn[row][column] == posn[row + 2][column + 2]
+						&& posn[row][column] == posn[row + 3][column + 3]) {
+					eval = -1000;
+				}
+			}
+		}
+
+		// check for a diagonal win (negative slope)
+		for (row = rows - 3; row < rows; row++) {
+			for (column = 0; column < cols - 3; column++) {
+				if (posn[row][column] != 0
+						&& posn[row][column] == posn[row - 1][column + 1]
+						&& posn[row][column] == posn[row - 2][column + 2]
+						&& posn[row][column] == posn[row - 3][column + 3]) {
+					eval = -1000;
+				}
+			}
+		}
+		int points1 = 0;
+		int points2 = 0;
+
+		// _XXX_ from row 4onwards.
+		for (row = rows - 2; row >= 1; row--) {
+			for (column = 0; column < cols - 4; column++) {
+				if (posn[row][column] == 0 && posn[row][column + 1] == type
+						&& posn[row][column + 2] == type
+						&& posn[row][column + 3] == type
+						&& posn[row][column + 4] == 0) {
+					if (row % 2 != 0) {
+						points1 = points1 + 10;
+					}
+					if (type == 1) {
+						points2 = -1 * points1;
+					}
+				}
+			}
+		}
+
+		for (row = 0; row < rows - 4; row++) {
+			for (column = 0; column < cols - 6; column++) {
+				if (posn[row][column] == 0 && posn[row + 1][column + 1] == type
+						&& posn[row + 2][column + 2] == type
+						&& posn[row + 3][column + 3] == type
+						&& posn[row + 4][column + 4] == 0) {
+					if (row % 2 != 0) {
+						points1 = points1 + 10;
+					}
+					if (type == 1) {
+						points2 = -1 * points1;
+					}
+				}
+			}
+		}
+
+		for (row = 0; row < rows - 3; row++) {
+			for (column = 0; column < cols - 5; column++) {
+				if (posn[row][column] == type && posn[row + 1][column + 1] == 0
+						&& posn[row + 2][column + 2] == type
+						&& posn[row + 3][column + 3] == type) {
+					if (row % 2 != 0) {
+						points1 = points1 + 10;
+					}
+					if (type == 1) {
+						points2 = -1 * points1;
+					}
+				}
+				if (posn[row][column] == type
+						&& posn[row + 1][column + 1] == type
+						&& posn[row + 2][column + 2] == 0
+						&& posn[row + 3][column + 3] == type) {
+					if (row % 2 != 0) {
+						points1 = points1 + 10;
+					}
+					if (type == 1) {
+						points2 = -1 * points1;
+					}
+				}
+				if (posn[row][column] == type
+						&& posn[row + 1][column + 1] == type
+						&& posn[row + 2][column + 2] == type
+						&& posn[row + 3][column + 3] == 0) {
+					if (row % 2 != 0) {
+						points1 = points1 + 10;
+					}
+					if (type == 2) {
+						points2 = -1 * points1;
+					}
+				}
+			}
+			if (posn[row][column] == 0 && posn[row + 1][column + 1] == type
+					&& posn[row + 2][column + 2] == type
+					&& posn[row + 3][column + 3] == type) {
+				if (row % 2 != 0) {
+					points1 = points1 + 10;
+				}
+				if (type == 2) {
+					points2 = -1 * points1;
+				}
+			}
+		}
+
+		for (row = rows - 2; row >= 1; row--) {
+			for (column = 0; column < cols - 4; column++) {
+				// _XXX
+				if (posn[row][column] == 0 && posn[row][column + 1] == type
+						&& posn[row][column + 2] == type
+						&& posn[row][column + 3] == type) {
+					if (row % 2 != 0) {
+						points1 = points1 + 1;
+					}
+					if (type == 1) {
+						points2 = -1 * points1;
+					}
+				}
+				// XXX_
+				if (posn[row][column] == type && posn[row][column + 1] == type
+						&& posn[row][column + 2] == type
+						&& posn[row][column + 3] == 0) {
+					if (row % 2 != 0) {
+						points1 = points1 + 1;
+					}
+					if (type == 1) {
+						points2 = -1 * points1;
+					}
+				}
+				// XX_X
+				if (posn[row][column] == type && posn[row][column + 1] == type
+						&& posn[row][column + 2] == 0
+						&& posn[row][column + 3] == type) {
+					if (row % 2 != 0) {
+						points1 = points1 + 1;
+					}
+					if (type == 1) {
+						points2 = -1 * points1;
+					}
+				}
+				// X_XX
+				if (posn[row][column] == type && posn[row][column + 1] == 0
+						&& posn[row][column + 2] == 0
+						&& posn[row][column + 3] == type) {
+					if (row % 2 != 0) {
+						points1 = points1 + 1;
+					}
+					if (type == 1) {
+						points2 = -1 * points1;
+					}
+				}
+			}
+		}
+		 
+		 points = points1 + points2; 
+		if (eval == -1000) {
+			return eval;
+		} else {
+			return points;
+		}
+
+	}
 
 	@SuppressWarnings("unchecked")
 	/**
