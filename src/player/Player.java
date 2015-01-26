@@ -15,7 +15,8 @@ public class Player {
 	private State state;
 	private boolean Timeout;
 
-	private int Depth = 2;
+	//Search to depth five ideally
+	private int Depth = 5;
 
 	public Player() {
 		setHeuristic(new Heuristic());
