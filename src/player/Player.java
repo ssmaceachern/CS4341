@@ -15,7 +15,7 @@ public class Player {
 	private State state;
 	private boolean Timeout;
 
-	//Search to depth five ideally
+	// Search to depth five ideally
 	private int Depth = 5;
 
 	public Player() {
@@ -25,32 +25,31 @@ public class Player {
 
 	/**
 	 * Decide makes a choice on what column to place a disk in
+	 * 
 	 * @param game
 	 * @return a Move (both column and pop-out) for the next best step
 	 */
 	public Move Decide(Game game) {
-		Move nextMove = new Move(0,1);
+		Move nextMove = new Move(0, 1);
 		state = new State(0, Depth, game.getBoard(), this);
 		state.GenerateMoves(0);
 		boolean myTurn = true;
 
-		//Create a stack of feasible moves to use
+		// Create a stack of feasible moves to use
 		ArrayList<Move> stack = new ArrayList<Move>();
 		while (true) {
-			//the next board state given by minimax on my turn
+			// the next board state given by minimax on my turn
 			State next = state.Minimax(myTurn);
 			if (Timeout || next == null) {
 				break;
 			}
 			state = next;
 			myTurn = !myTurn;
-			
+
 			stack.add(state.getMove());
 		}
 
-
 		nextMove = stack.get(0);
-		
 		
 		return nextMove;
 	}
@@ -64,7 +63,6 @@ public class Player {
 			state.Stop();
 		}
 	}
-	
 
 	/**
 	 * @return the heuristic
@@ -74,11 +72,11 @@ public class Player {
 	}
 
 	/**
-	 * @param heuristic the heuristic to set
+	 * @param heuristic
+	 *            the heuristic to set
 	 */
 	public void setHeuristic(Heuristic heuristic) {
 		Heuristic = heuristic;
 	}
 
-	
 }

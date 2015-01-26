@@ -140,6 +140,10 @@ public class Heuristic {
 								.getNumToWin()) { // remember
 							// the
 							// threat
+							//Store this threat and see whether or not I can benefit from a pop-out
+							if (pieces [x][0].isMine()){
+								popOutAvailable = true;
+							}
 							opposingThreats.add(new Opponent(emptyX, emptyY,
 									numOfConsecutivePieces,
 									potentialConsecutivePieces, sign)); // I can
@@ -205,6 +209,10 @@ public class Heuristic {
 								.getNumToWin()) { // remember
 							// the
 							// threat
+							//Store this threat and see whether or not I can benefit from a pop-out
+							if (pieces [x][0].isMine()){
+								popOutAvailable = true;
+							}
 							opposingThreats.add(new Opponent(emptyX, emptyY,
 									numOfConsecutivePieces,
 									potentialConsecutivePieces, sign)); // I can
@@ -269,6 +277,10 @@ public class Heuristic {
 								.getNumToWin()) { // remember
 							// the
 							// threat
+							//Store this threat and see whether or not I can benefit from a pop-out
+							if (pieces [x][0].isMine()){
+								popOutAvailable = true;
+							}
 							opposingThreats.add(new Opponent(emptyX, emptyY,
 									numOfConsecutivePieces,
 									potentialConsecutivePieces, sign)); // I can
@@ -333,6 +345,10 @@ public class Heuristic {
 								.getNumToWin()) { // remember
 							// the
 							// threat
+							//Store this threat and see whether or not I can benefit from a pop-out
+							if (pieces [x][0].isMine()){
+								popOutAvailable = true;
+							}
 							opposingThreats.add(new Opponent(emptyX, emptyY,
 									numOfConsecutivePieces,
 									potentialConsecutivePieces, sign)); // I can
@@ -396,6 +412,10 @@ public class Heuristic {
 					{
 						if (numOfConsecutivePieces + potentialConsecutivePieces >= board
 								.getNumToWin()) {
+							//Store this threat and see whether or not I can benefit from a pop-out
+							if (pieces [x][0].isMine()){
+								popOutAvailable = true;
+							}
 							// this is bad!! Store the threat in the
 							// opposingThreats object
 							opposingThreats.add(new Opponent(emptyX, emptyY,

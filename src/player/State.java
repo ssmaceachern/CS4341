@@ -76,7 +76,7 @@ public class State {
 
 	/**
 	 * Rudimentary version of minimax implemented for use in this search
-	 * @param maximize
+	 * @param maximize - whether or not we are looking min first.
 	 * @return
 	 */
 	public State Minimax(boolean maximize) {
