@@ -87,8 +87,7 @@ public class Heuristic {
 						}
 						numOfConsecutivePieces = 1;
 						sign = pieces[x][y].isMine();
-						if (!previousEmpty) // Decide to count empty spaces or
-											// not
+						if (!previousEmpty) 
 							potentialConsecutivePieces = 0;
 					} else {
 						numOfConsecutivePieces++;

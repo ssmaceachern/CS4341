@@ -50,7 +50,7 @@ public class Game {
 	}
 
 	/**
-	 * 
+	 * The main function for a game play. 
 	 * @throws Exception
 	 */
 	public void Play() throws Exception {
@@ -81,15 +81,18 @@ public class Game {
 				move.setPopOut(Integer.parseInt(data[1]));
 			}
 
+			//Handle game ending conditions
 			switch (move.getColumn()) {
-			case -1:
+			case -1: 
 			case -2:
 			case -3:
 				return;
 			}
-
+			
+			//assuming we haven't ended, then proceed with the game
 			getBoard().HandleMove(currentTurn == playerNum, move);
 
+			//Change turns.
 			if (currentTurn == 2) {
 				currentTurn = 1;
 			} else

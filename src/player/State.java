@@ -14,7 +14,7 @@ public class State {
 	private Board Board;
 	private Player Player;
 	private State Moves[];
-	private boolean Timeout, popOutAvailable;
+	private boolean Timeout;
 
 	private static int alpha;
 	private static int beta;
@@ -100,14 +100,14 @@ public class State {
 	}
 
 	/**
-	 * 
+	 * When stop is called, tell the program we have timed-out
 	 */
 	public void Stop() {
 		Timeout = true;
 	}
 
 	/**
-	 * 
+	 * A basic comparer to see if what we've seen so far is better then the best
 	 * @param score
 	 * @param best
 	 * @param maximize
@@ -118,7 +118,7 @@ public class State {
 	}
 
 	/**
-	 * 
+	 * A comparer for AlphaBeta pruning of the tree
 	 * @param score
 	 * @param alpha
 	 * @param beta

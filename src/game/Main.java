@@ -39,7 +39,7 @@ public class Main {
 				s = streamReader.readLine();
 				gameConfig = Arrays.asList(s.split(" "));
 			} else {
-				// ls contains game info
+				// set game info
 				int height = Integer.parseInt(gameConfig.get(0));
 				int width = Integer.parseInt(gameConfig.get(1));
 				int numberToWin = Integer.parseInt(gameConfig.get(2));
@@ -49,6 +49,7 @@ public class Main {
 				Game game = new Game(height, width, numberToWin, playerNumber,
 						timeLimit);
 				game.Play();
+				break;
 			}
 		}
 
