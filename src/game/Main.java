@@ -29,12 +29,17 @@ public class Main {
 
 		BufferedReader streamReader = new BufferedReader(new InputStreamReader(
 				System.in));
+
+		String s = streamReader.readLine();
+		List<String> gameConfig = Arrays.asList(s.split(" "));
+
 		while (true) {
-
-			String s = streamReader.readLine();
-			List<String> gameConfig = Arrays.asList(s.split(" "));
-
-			if (gameConfig.size() == 5) { // ls contains game info
+			// erroneous lines
+			if (gameConfig.size() != 5) {
+				s = streamReader.readLine();
+				gameConfig = Arrays.asList(s.split(" "));
+			} else {
+				// ls contains game info
 				int height = Integer.parseInt(gameConfig.get(0));
 				int width = Integer.parseInt(gameConfig.get(1));
 				int numberToWin = Integer.parseInt(gameConfig.get(2));
@@ -45,7 +50,6 @@ public class Main {
 						timeLimit);
 				game.Play();
 			}
-
 		}
 
 	}

@@ -96,7 +96,7 @@ public class Board {
 	 */
 	public void HandleMove(boolean mine, Move move) {
 		for (int i = 0; i < getHeight(); i++) {
-			// TODO handle pop-out here
+			//Place the piece on the board
 			if (getPieces()[move.getColumn()][i] == null) {
 				getPieces()[move.getColumn()][i] = new Piece(mine);
 				break;
