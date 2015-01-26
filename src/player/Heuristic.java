@@ -13,7 +13,12 @@ import game.Piece;
  */
 public class Heuristic {
 	
-	public int Evaluate2(Board board) {
+	/**
+	 * 
+	 * @param board
+	 * @return
+	 */
+	public int evaluate2(Board board) {
 		int points = 0;
 		int eval = 0;
 		int row;
@@ -228,7 +233,7 @@ public class Heuristic {
 	 * @param board - The board to evaluate
 	 * @return - An integer value for the usefulness of this board state
 	 */
-	public int Evaluate(Board board) {
+	public int evaluate(Board board) {
 
 		// return a low score if the board is non-existant
 		if (board == null) {

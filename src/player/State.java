@@ -32,7 +32,7 @@ public class State {
 		//TODO Handle pop-out
 		Move = new Move(column,1);
 		MaxDepth = maxDepth;
-		Score = player.getHeuristic().Evaluate(board);
+		Score = player.getHeuristic().evaluate(board);
 		Board = board;
 		Player = player;
 	}
