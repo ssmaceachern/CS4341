@@ -24,9 +24,9 @@ public class Player {
 	}
 
 	/**
-	 * 
+	 * Decide makes a choice on what column to place a disk in
 	 * @param game
-	 * @return
+	 * @return a Move (both column and pop-out) for the next best step
 	 */
 	public Move Decide(Game game) {
 		Move nextMove = new Move(0,1);
@@ -34,23 +34,23 @@ public class Player {
 		state.GenerateMoves(0);
 		boolean myTurn = true;
 
-		ArrayList<Integer> stack = new ArrayList<Integer>();
+		//Create a stack of feasible moves to use
+		ArrayList<Move> stack = new ArrayList<Move>();
 		while (true) {
+			//the next board state given by minimax on my turn
 			State next = state.Minimax(myTurn);
 			if (Timeout || next == null) {
 				break;
 			}
 			state = next;
 			myTurn = !myTurn;
-			// unfortunately, this will auto-box our integer
-			stack.add(state.getMove().getColumn());
+			
+			stack.add(state.getMove());
 		}
 
-		int decision = 0;
 
-		decision = stack.get(0);
-
-		nextMove.setColumn(decision);
+		nextMove = stack.get(0);
+		
 		
 		return nextMove;
 	}

@@ -14,31 +14,31 @@ public class State {
 	private Board Board;
 	private Player Player;
 	private State Moves[];
-	private boolean Timeout;
+	private boolean Timeout, popOutAvailable;
 
 	private static int alpha;
 	private static int beta;
 	private static boolean max;
 
-	//TODO I think this is where we handle the pop-out 
 	/**
-	 * 
+	 *  Constructor for the State class
 	 * @param column
 	 * @param maxDepth
 	 * @param board
 	 * @param player
 	 */
 	public State(int column, int maxDepth, Board board, Player player) {
-		//TODO Handle pop-out
+
 		Move = new Move(column,1);
 		MaxDepth = maxDepth;
 		Score = player.getHeuristic().evaluate(board);
+		Move.setPopOut(player.getHeuristic().isPopOutAvailable()==true?0:1);
 		Board = board;
 		Player = player;
 	}
 
 	/**
-	 * 
+	 * Generates moves using alpha-beta pruning to the depth of parameter (level)
 	 * @param level
 	 */
 	public void GenerateMoves(int level) {
@@ -75,7 +75,7 @@ public class State {
 	}
 
 	/**
-	 * 
+	 * Rudimentary version of minimax implemented for use in this search
 	 * @param maximize
 	 * @return
 	 */
@@ -146,4 +146,7 @@ public class State {
 	public void setMove(Move move) {
 		Move = move;
 	}
+
+
+
 }

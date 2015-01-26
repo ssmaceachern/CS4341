@@ -21,7 +21,7 @@ public class Game {
 	private Timer timer;
 	private int numToWin, playerNum, TimeLimit;
 
-	private boolean isDropUsed;
+	private boolean isPopOutUsed;
 	private Board board;
 	private Player player;
 
@@ -44,7 +44,7 @@ public class Game {
 		playerNum = playerNumber;
 		TimeLimit = timeLimit;
 
-		isDropUsed = false;
+		isPopOutUsed = false;
 		setBoard(new Board(height, width, numberToWin, playerNumber, timeLimit));
 		player = new Player();
 	}
@@ -57,11 +57,18 @@ public class Game {
 		Move move = new Move(0, 1);
 
 		int currentTurn = playerNum;
-		
 
 		while (true) {
 			if (playerNum == currentTurn) {
 				move = nextMove(move);
+				
+				if(isPopOutUsed){
+					move.setPopOut(1);
+				}
+
+				if (move.getPopOut() == 0) {
+					isPopOutUsed = true;
+				}
 
 				System.out.println(String.valueOf(move.getColumn()) + " "
 						+ String.valueOf(move.getPopOut()));
@@ -102,7 +109,7 @@ public class Game {
 
 		startClock();
 		move = player.Decide(this);
-		// TODO Handle popout here somehow
+
 		stopClock();
 
 		return move;
