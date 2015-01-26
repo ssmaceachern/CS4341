@@ -29,9 +29,10 @@ public class State {
 	 * @param player
 	 */
 	public State(int column, int maxDepth, Board board, Player player) {
-		getMove().setColumn(column);
+		//TODO Handle pop-out
+		Move = new Move(column,1);
 		MaxDepth = maxDepth;
-		Score = player.getHeuristic().Evaluate(board);
+		Score = player.getHeuristic().evaluate(board);
 		Board = board;
 		Player = player;
 	}

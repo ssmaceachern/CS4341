@@ -1,7 +1,0 @@
-<?xml version="1.0" ?>
-<!-- Configuration of the Ant build system to generate a Jar file --> 
-<project name="CS4341-Project1" default="CreatePlayer">
-  <target name="CreatePlayer" description="Create Jar file from Player class">
-        <jar jarfile="testPlayer1.jar" basedir="." includes="*.class" />
-  </target>
-</project>

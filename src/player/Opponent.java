@@ -7,12 +7,12 @@ import java.util.Comparator;
  * @author Zach Arnold and Sean MacEachern
  *
  */
-public class Threat {
+public class Opponent {
 
-	private int x, y, streak, potentialStreak, threat;
+	private int xLocation, yLocation, streak, potentialStreak, threatValue;
 	private boolean sign;
 
-	public Threat(int x, int y, int streak, int potentialStreak, boolean sign) {
+	public Opponent(int x, int y, int streak, int potentialStreak, boolean sign) {
 		this.setX(x);
 		this.setY(y);
 		this.setStreak(streak);
@@ -29,8 +29,8 @@ public class Threat {
 			@Override
 			public int compare(Object o1, Object o2) {
 
-				Threat t1 = (Threat) o1;
-				Threat t2 = (Threat) o2;
+				Opponent t1 = (Opponent) o1;
+				Opponent t2 = (Opponent) o2;
 
 				if (t1.getX() > t2.getX())
 					return 1; // greater
@@ -84,7 +84,7 @@ public class Threat {
 	 * @return the x
 	 */
 	public int getX() {
-		return x;
+		return xLocation;
 	}
 
 	/**
@@ -92,14 +92,14 @@ public class Threat {
 	 *            the x to set
 	 */
 	public void setX(int x) {
-		this.x = x;
+		this.xLocation = x;
 	}
 
 	/**
 	 * @return the y
 	 */
 	public int getY() {
-		return y;
+		return yLocation;
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class Threat {
 	 *            the y to set
 	 */
 	public void setY(int y) {
-		this.y = y;
+		this.yLocation = y;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class Threat {
 	 * @return the threat
 	 */
 	public int getThreat() {
-		return threat;
+		return threatValue;
 	}
 
 	/**
@@ -137,6 +137,6 @@ public class Threat {
 	 *            the threat to set
 	 */
 	public void setThreat(int threat) {
-		this.threat = threat;
+		this.threatValue = threat;
 	}
 }

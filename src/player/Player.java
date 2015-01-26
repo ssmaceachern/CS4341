@@ -3,6 +3,7 @@ package player;
 import java.util.ArrayList;
 
 import game.Game;
+import game.Move;
 
 /**
  * 
@@ -14,7 +15,8 @@ public class Player {
 	private State state;
 	private boolean Timeout;
 
-	private int Depth = 2;
+	//Search to depth five ideally
+	private int Depth = 5;
 
 	public Player() {
 		setHeuristic(new Heuristic());
@@ -26,7 +28,8 @@ public class Player {
 	 * @param game
 	 * @return
 	 */
-	public int Decide(Game game) {
+	public Move Decide(Game game) {
+		Move nextMove = new Move(0,1);
 		state = new State(0, Depth, game.getBoard(), this);
 		state.GenerateMoves(0);
 		boolean myTurn = true;
@@ -45,11 +48,11 @@ public class Player {
 
 		int decision = 0;
 
-		// try {
 		decision = stack.get(0);
-		// } catch (Exception e) {}
 
-		return decision;
+		nextMove.setColumn(decision);
+		
+		return nextMove;
 	}
 
 	/**
@@ -61,6 +64,7 @@ public class Player {
 			state.Stop();
 		}
 	}
+	
 
 	/**
 	 * @return the heuristic
@@ -75,4 +79,6 @@ public class Player {
 	public void setHeuristic(Heuristic heuristic) {
 		Heuristic = heuristic;
 	}
+
+	
 }

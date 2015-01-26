@@ -21,7 +21,7 @@ public class Game {
 	private Timer timer;
 	private int numToWin, playerNum, TimeLimit;
 
-	private boolean isMyTurn, isDropUsed;
+	private boolean isDropUsed;
 	private Board board;
 	private Player player;
 
@@ -44,20 +44,27 @@ public class Game {
 		playerNum = playerNumber;
 		TimeLimit = timeLimit;
 
-		isMyTurn = playerNum == 0;
 		isDropUsed = false;
 		setBoard(new Board(height, width, numberToWin, playerNumber, timeLimit));
 		player = new Player();
 	}
 
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	public void Play() throws Exception {
-		Move move = null;
+		Move move = new Move(0, 1);
+
+		int currentTurn = playerNum;
+		
 
 		while (true) {
-			if (isMyTurn) {
-				move = nextMove();
+			if (playerNum == currentTurn) {
+				move = nextMove(move);
+
 				System.out.println(String.valueOf(move.getColumn()) + " "
-						+ move.getPopOut());
+						+ String.valueOf(move.getPopOut()));
 				System.out.flush();
 			} else {
 				BufferedReader streamReader = new BufferedReader(
@@ -74,8 +81,12 @@ public class Game {
 				return;
 			}
 
-			getBoard().HandleMove(isMyTurn, move);
-			isMyTurn = !isMyTurn;
+			getBoard().HandleMove(currentTurn == playerNum, move);
+
+			if (currentTurn == 2) {
+				currentTurn = 1;
+			} else
+				currentTurn = 2;
 		}
 	}
 
@@ -83,13 +94,14 @@ public class Game {
 	 * next move used the Heuristic functions from the player class to make a
 	 * best guess for the next move
 	 * 
+	 * @param move
+	 * 
 	 * @return the Move to be made
 	 */
-	private Move nextMove() {
-		Move move = new Move(0, 0);
+	private Move nextMove(Move move) {
 
 		startClock();
-		move.setColumn(player.Decide(this));
+		move = player.Decide(this);
 		// TODO Handle popout here somehow
 		stopClock();
 
@@ -126,7 +138,8 @@ public class Game {
 	}
 
 	/**
-	 * @param board the board to set
+	 * @param board
+	 *            the board to set
 	 */
 	public void setBoard(Board board) {
 		this.board = board;

@@ -1,8 +1,10 @@
 package game;
 
-
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 
@@ -13,9 +15,13 @@ public class Main {
 	public static final String teamName = "Nighthawks";
 
 	/**
-	 * This is the main program which will play connect-N artificially intelligently
-	 * @param args - (to the program (from the ref.))
-	 * @throws Exception - in case something breaks
+	 * This is the main program which will play connect-N artificially
+	 * intelligently
+	 * 
+	 * @param args
+	 *            - (to the program (from the ref.))
+	 * @throws Exception
+	 *             - in case something breaks
 	 */
 	public static void main(String[] args) throws Exception {
 
@@ -23,17 +29,29 @@ public class Main {
 
 		BufferedReader streamReader = new BufferedReader(new InputStreamReader(
 				System.in));
-		String[] gameConfig = streamReader.readLine().split(" ");
 
-		int height = Integer.parseInt(gameConfig[0]);
-		int width = Integer.parseInt(gameConfig[1]);
-		int numberToWin = Integer.parseInt(gameConfig[2]);
-		int playerNumber = Integer.parseInt(gameConfig[3]);
-		int timeLimit = Integer.parseInt(gameConfig[4]);
+		String s = streamReader.readLine();
+		List<String> gameConfig = Arrays.asList(s.split(" "));
 
-		Game game = new Game(height, width, numberToWin, playerNumber,
-				timeLimit);
-		game.Play();
+		while (true) {
+			// erroneous lines
+			if (gameConfig.size() != 5) {
+				s = streamReader.readLine();
+				gameConfig = Arrays.asList(s.split(" "));
+			} else {
+				// ls contains game info
+				int height = Integer.parseInt(gameConfig.get(0));
+				int width = Integer.parseInt(gameConfig.get(1));
+				int numberToWin = Integer.parseInt(gameConfig.get(2));
+				int playerNumber = Integer.parseInt(gameConfig.get(3));
+				int timeLimit = Integer.parseInt(gameConfig.get(4));
+
+				Game game = new Game(height, width, numberToWin, playerNumber,
+						timeLimit);
+				game.Play();
+			}
+		}
+
 	}
 
 	/**

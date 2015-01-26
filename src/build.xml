@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!-- Configuration of the Ant build system to generate a Jar file --> 
+<project name="CS4341" default="CreateJar">
+	<target name="CreateJar">
+	<jar destfile="../testPlayer3.jar">
+		
+		 <fileset dir="../bin">
+		    <include name="game/**"/>
+			<include name="player/**"/>
+		 	<exclude name="search/**"/>
+		 </fileset>
+		
+	     <manifest>
+	      <attribute name="Main-Class" value="game.Main"/>
+	     </manifest>
+	</jar>
+	</target>
+</project>
